@@ -1,4 +1,5 @@
 import time
+import json
 from flask import Flask, jsonify
 from flask_restx import reqparse, inputs, Resource, Api
 import functions
@@ -23,8 +24,8 @@ class fibonacci(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument(
         'n', 
-        type=inputs.int_range(low=0, high=9999), 
-        help='N [0..9999] in Fibonacci number.', 
+        type=inputs.int_range(low=0, high=4999), 
+        help='N [0..4999] in Fibonacci number.', 
         required=True,
         location='args')
 
@@ -36,10 +37,13 @@ class fibonacci(Resource):
         args = self.parser.parse_args()
         n = args['n']
 
-        result = {}
         start_time = time.perf_counter()
-        result['sequence'] = functions.F(n)
-        result['duration'] = round((time.perf_counter() - start_time) * 1000,2)
+        fab = functions.F(n)
+        end_time = time.perf_counter()
+
+        result = {}
+        result['duration']  = round((end_time - start_time) * 1000,2)
+        result['sequence']  = json.dumps(fab)
 
         return result
 
