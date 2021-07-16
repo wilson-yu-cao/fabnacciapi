@@ -40,6 +40,6 @@ Instructions:
     RESTAPI doc URL, http://localhost:5000/
     
 Start unittest:
-
+    python ./test.py
                 
 
