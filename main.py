@@ -48,6 +48,11 @@ class fibonacci(Resource):
         """
         Retrieve the Fibonacci sequence for the number, unless it's in the blacklist
         """
+        global fib_blacklist
+        if n in fib_blacklist:
+            result={}
+            result['status']  = "blacklist_number"
+            return result
 
         args = self.parser.parse_args()
         page = args['page']
@@ -58,6 +63,7 @@ class fibonacci(Resource):
         end_time = time.perf_counter()
 
         result = {}
+        result['status']  = "succees"
         result['duration']  = round((end_time - start_time) * 1000,2)
         result['sequence']  = fib
 
@@ -73,6 +79,7 @@ class blacklist(Resource):
         fib_blacklist.add(n)
 
         result = {}
+        result['status']  = "succees"
         result['blacklist_numbers']  = [str(element) for element in fib_blacklist]
 
         return result
@@ -86,6 +93,7 @@ class blacklist(Resource):
             fib_blacklist.remove(n)
 
         result = {}
+        result['status']  = "succees"
         result['blacklist_numbers']  = [str(element) for element in fib_blacklist]
 
         return result
