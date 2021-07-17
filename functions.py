@@ -21,18 +21,18 @@ def F(n):
 # This is only for dev or demo purpose. Such global cache
 # may cause unexpected behavior when Flask handles requests using multiple threads. 
 # For production, use a memory cache solution.
-fab_cache=[]
+fib_cache=[]
 def F_with_cache(n, page, size):
     assert n>=0, 'assert n>=0'
     assert page>=1, 'assert page>=1'
     assert size>=1, 'assert size>=1'
 
-    global fab_cache
+    global fib_cache
 
-    if len(fab_cache) <= n:
-        fab_cache = [str(element) for element in F(n)]
+    if len(fib_cache) <= n:
+        fib_cache = [str(element) for element in F(n)]
  
-    fab_split=fab_cache[:n+1]
-    ret=fab_split[(page-1)*size:page*size]
+    fib_split=fib_cache[:n+1]
+    ret=fib_split[(page-1)*size:page*size]
  
     return ret
